@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 /// Gets an OAuth2 access token from the 42 API (client_credentials flow)
 /// and caches it in memory until it expires.
 class AuthService {
@@ -21,11 +25,20 @@ class AuthService {
         'client_secret': dotenv.env['CLIENT_SECRET']!,
       },
     );
-    if (response.statusCode == 200) throw AuthException('Failed to fetch token: ${response.body}');
+    if (response.statusCode != 200) throw AuthException('Failed to fetch token: ${response.body}');
     // Parse the JSON response and cache the new token and expiration time
     final json = jsonDecode(response.body);
     _token = json['access_token'];
     _expiration = DateTime.now().add(Duration(seconds: json['expires_in']));
     return _token!;
   }
+}
+
+class AuthException implements Exception {
+  AuthException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => message;
 }
