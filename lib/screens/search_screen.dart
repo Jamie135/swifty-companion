@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'profile_screen.dart';
 import '../services/api_service.dart';
 
-/// View 1: login text field + search button. Pushes ProfileScreen on success,
-/// shows an error message otherwise.
+/// View 1: login text field + search button.
+/// Pushes ProfileScreen on success, shows an error message otherwise.
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key, required this.api});
   final ApiService api;
