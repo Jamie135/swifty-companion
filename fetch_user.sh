@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Usage: scripts/fetch_user.sh <login>
+# Usage: ./fetch_user.sh <login>
 # Reads CLIENT_ID / CLIENT_SECRET from .env and fetches a user from the 42 API.
 set -euo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")"
 set -a; source .env; set +a
 
 login="${1:?usage: $0 <login>}"
