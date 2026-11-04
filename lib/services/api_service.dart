@@ -58,6 +58,12 @@ class ApiService {
     }
   }
 
+  /// Headers for cdn.intra.42.fr, which answers 403 without the API token.
+  Future<Map<String, String>> imageHeaders() async {
+    final token = await _auth.getToken();
+    return {'Authorization': 'Bearer $token'};
+  }
+
   Future<http.Response> _get(Uri uri, {bool refresh = false}) async {
     final token = await _auth.getToken(toRefresh: refresh);
     return http

@@ -5,9 +5,10 @@ const _unavailable = 'Unavailable';
 
 /// View 2: user details.
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key, required this.user});
+  const ProfileScreen({super.key, required this.user, required this.imageHeaders});
 
   final User user;
+  final Map<String, String> imageHeaders;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _Avatar(url: user.imageUrl),
+          _Avatar(url: user.imageUrl, headers: imageHeaders),
           const _SectionTitle('Details'),
           _Detail('Name', user.displayname),
           _Detail('Email', user.email),
@@ -46,9 +47,10 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class _Avatar extends StatelessWidget {
-  const _Avatar({required this.url});
+  const _Avatar({required this.url, required this.headers});
 
   final String? url;
+  final Map<String, String> headers;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,7 @@ class _Avatar extends StatelessWidget {
             ? placeholder
             : Image.network(
                 imageUrl,
+                headers: headers,
                 width: 120,
                 height: 120,
                 fit: BoxFit.cover,

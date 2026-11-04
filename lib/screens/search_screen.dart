@@ -29,12 +29,15 @@ class _SearchScreenState extends State<SearchScreen> {
     try {
       // fetch user by the login
       final user = await widget.api.fetchUser(_controller.text);
+      final imageHeaders = await widget.api.imageHeaders();
       // mounted is a property that indicates whether the widget is still in the widget tree.
       if (!mounted) return;
       // push the ProfileScreen with the fetched user
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => ProfileScreen(user: user)),
+        MaterialPageRoute(
+          builder: (_) => ProfileScreen(user: user, imageHeaders: imageHeaders),
+        ),
       );
     } on ApiException catch (e) {
       if (!mounted) return;
