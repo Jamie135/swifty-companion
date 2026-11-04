@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Usage: scripts/test_api.sh <login>
+# Usage: scripts/fetch_user.sh <login>
 # Reads CLIENT_ID / CLIENT_SECRET from .env and fetches a user from the 42 API.
 set -euo pipefail
 cd "$(dirname "$0")/.."
