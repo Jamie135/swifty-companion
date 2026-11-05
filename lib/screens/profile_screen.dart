@@ -3,6 +3,9 @@ import '../models/user.dart';
 
 const _unavailable = 'Unavailable';
 
+/// Above this width (tablet or landscape), skills and projects sit side by side.
+const _wideLayoutBreakpoint = 600.0;
+
 /// View 2: user details.
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, required this.user, required this.imageHeaders});
@@ -19,28 +22,58 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(user.login ?? 'Profile')),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _Avatar(url: user.imageUrl, headers: imageHeaders),
-          const _SectionTitle('Details'),
-          _Detail('Name', user.displayname),
-          _Detail('Email', user.email),
-          _Detail('Phone', user.phone),
-          _Detail('Location', user.location),
-          _Detail('Campus', user.campus),
-          _Detail('Wallet', user.wallet?.toString()),
-          _Detail('Correction points', user.correctionPoint?.toString()),
-          const _SectionTitle('Level'),
-          _LevelBar(label: cursus?.name ?? _unavailable, level: cursus?.level),
-          const _SectionTitle('Skills'),
-          if (skills.isEmpty) const Text(_unavailable),
-          for (final skill in skills)
-            _LevelBar(label: skill.name ?? _unavailable, level: skill.level),
-          const _SectionTitle('Projects'),
-          if (projects.isEmpty) const Text(_unavailable),
-          for (final project in projects) _ProjectTile(project),
-        ],
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final skillsSection = Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const _SectionTitle('Skills'),
+                if (skills.isEmpty) const Text(_unavailable),
+                for (final skill in skills)
+                  _LevelBar(label: skill.name ?? _unavailable, level: skill.level),
+              ],
+            );
+            final projectsSection = Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const _SectionTitle('Projects'),
+                if (projects.isEmpty) const Text(_unavailable),
+                for (final project in projects) _ProjectTile(project),
+              ],
+            );
+
+            return ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                _Avatar(url: user.imageUrl, headers: imageHeaders),
+                const _SectionTitle('Details'),
+                _Detail('Name', user.displayname),
+                _Detail('Email', user.email),
+                _Detail('Phone', user.phone),
+                _Detail('Location', user.location),
+                _Detail('Campus', user.campus),
+                _Detail('Wallet', user.wallet?.toString()),
+                _Detail('Correction points', user.correctionPoint?.toString()),
+                const _SectionTitle('Level'),
+                _LevelBar(label: cursus?.name ?? _unavailable, level: cursus?.level),
+                if (constraints.maxWidth > _wideLayoutBreakpoint)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: skillsSection),
+                      const SizedBox(width: 16),
+                      Expanded(child: projectsSection),
+                    ],
+                  )
+                else ...[
+                  skillsSection,
+                  projectsSection,
+                ],
+              ],
+            );
+          },
+        ),
       ),
     );
   }

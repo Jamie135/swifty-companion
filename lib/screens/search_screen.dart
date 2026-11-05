@@ -54,26 +54,35 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Swifty Companion')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _controller,
-              decoration: const InputDecoration(labelText: 'Enter 42 login'),
-              onSubmitted: (_) => _loading ? null : _search(),
+      body: SafeArea(
+        child: Center(
+          // Scrollable so the form still fits in landscape with the keyboard open.
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: ConstrainedBox(
+              // Stops the field stretching across the whole screen on tablets.
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: _controller,
+                    decoration: const InputDecoration(labelText: 'Enter 42 login'),
+                    onSubmitted: (_) => _loading ? null : _search(),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: _loading ? null : _search,
+                    child: _loading
+                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                        : const Text('Search'),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _loading ? null : _search,
-              child: _loading
-                  ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                  : const Text('Search'),
-            ),
-          ],
-        )
-      )
+          ),
+        ),
+      ),
     );
   }
 }
