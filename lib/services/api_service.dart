@@ -23,6 +23,7 @@ class ApiService {
       var res = await _get(uri);
       // If the token is expired, refresh it and retry the request
       if (res.statusCode == 401) {
+        // print('[api] 401 received, refreshing token and retrying');
         res = await _get(uri, refresh: true);
       }
       switch (res.statusCode) {

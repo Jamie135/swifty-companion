@@ -31,6 +31,9 @@ class AuthService {
     final json = jsonDecode(response.body);
     _token = json['access_token'];
     _expiration = DateTime.now().add(Duration(seconds: json['expires_in']));
+    // DEMO: force token to be invalid for testing
+    // _token = _token == null ? 'expired' : json['access_token'];
+    // _expiration = DateTime.now().add(const Duration(seconds: 35));
     // print('[auth] new token $_token');
     return _token!;
   }
