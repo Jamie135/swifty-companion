@@ -13,6 +13,7 @@ class AuthService {
     // Return the cached token if it's still valid and not forced to refresh
     if (!toRefresh && _token != null && _expiration != null && 
         DateTime.now().isBefore(_expiration!.subtract(const Duration(seconds: 30)))) {
+        // print('[auth] cached token $_token, ${_expiration!.difference(DateTime.now()).inSeconds}s left');
       return _token!;
     }
     // Fetch a new token from the 42 API
@@ -30,6 +31,7 @@ class AuthService {
     final json = jsonDecode(response.body);
     _token = json['access_token'];
     _expiration = DateTime.now().add(Duration(seconds: json['expires_in']));
+    // print('[auth] new token $_token');
     return _token!;
   }
 }
