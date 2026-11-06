@@ -68,10 +68,17 @@ flutter run -d linux
 In the `flutter doctor` output, only the **Linux toolchain** line matters here.
 It needs `clang`, `cmake`, `ninja`, `pkg-config` and the GTK headers.
 
-## Launch the app
+## Create and launch the app
 
-Run these commands from the project folder.
+### Create
 
+```sh
+flutter create <app_name>
+```
+This command generates a starter folders/files for a Flutter project with a working starter app such as:
+- `pubspec.yaml`
+- `lib/main.dart` **(the app's main code)**
+- `android/` ; `ios/` ; `linux` ; `web` ; etc... **(folders to run our app in different platforms)**
 ### Linux
 
 ```sh
