@@ -68,6 +68,40 @@ flutter run -d linux
 In the `flutter doctor` output, only the **Linux toolchain** line matters here.
 It needs `clang`, `cmake`, `ninja`, `pkg-config` and the GTK headers.
 
+## Launch the app
+
+Run these commands from the project folder.
+
+### Linux
+
+```sh
+flutter run -d linux
+```
+
+### Chrome
+```sh
+flutter run -d chrome --web-port 8080
+```
+
+### Mobile
+
+Mobile needs the Android toolchain and an emulator set up in Android Studio.
+List your emulators, start one, then run the app on it:
+
+```sh
+flutter emulators
+flutter emulators --launch <emulator_id>
+flutter run
+```
+
+To use a phone connected by USB, turn on USB debugging on the phone, then find
+its ID and run the app on it:
+
+```sh
+flutter devices
+flutter run -d <device_id>
+```
+
 ## If the Linux toolchain is missing
 
 These tools can't be installed without sudo. Instead, build an APK on a machine
