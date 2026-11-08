@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'profile_screen.dart';
 import '../services/api_service.dart';
+import '../theme/app_colors.dart';
 
 /// View 1: login text field + search button.
 /// Pushes ProfileScreen on success, shows an error message otherwise.
@@ -53,7 +54,19 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Swifty Companion')),
+      appBar: AppBar(
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: Image.asset('assets/app_icon.png', width: 32, height: 32),
+            ),
+            const SizedBox(width: 10),
+            const Text('Swifty Companion'),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Center(
           // Scrollable so the form still fits in landscape with the keyboard open.
@@ -73,8 +86,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: _loading ? null : _search,
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: fluorescentPink,
+                      side: const BorderSide(color: fluorescentPink),
+                    ),
                     child: _loading
-                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: fluorescentPink, strokeWidth: 2))
                         : const Text('Search'),
                   ),
                 ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
+import '../theme/app_colors.dart';
 
 const _unavailable = 'Unavailable';
 
@@ -116,7 +117,10 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 24, bottom: 8),
-      child: Text(title, style: Theme.of(context).textTheme.titleLarge),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(color: fluorescentPink),
+      ),
     );
   }
 }
@@ -157,7 +161,10 @@ class _LevelBar extends StatelessWidget {
               ? _unavailable
               : 'Level ${value.level} - ${value.levelPercent}%'),
           const SizedBox(height: 4),
-          LinearProgressIndicator(value: (value?.levelPercent ?? 0) / 100),
+          LinearProgressIndicator(
+            value: (value?.levelPercent ?? 0) / 100,
+            color: fluorescentPink,
+          ),
         ],
       ),
     );

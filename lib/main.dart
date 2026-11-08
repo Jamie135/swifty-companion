@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/search_screen.dart';
 import 'services/api_service.dart';
 import 'services/auth_service.dart';
+import 'theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Swifty Companion',
+      theme: buildAppTheme(),
       home: SearchScreen(api: api),
     );
   }
