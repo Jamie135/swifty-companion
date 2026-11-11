@@ -10,7 +10,7 @@ sudo access, such as a 42 school computer.
 - Flutter 3.47.8 or newer (`pubspec.yaml` requires Dart `^3.13.7`)
 - A 42 API application, for its UID and secret
 
-## Setup Flutter
+## Setup Flutter (for 42 machine)
 
 `goinfre` is local to each machine and can be wiped, so on any new school
 machine you have to clone everything again. Everything goes into
@@ -97,14 +97,14 @@ flutter devices
 flutter run -d <device_id>
 ```
 
-## Setup Android SDK
+## Setup Android SDK (for 42 machine)
 
 ### 1. Download and unpack
 
 ```sh
 mkdir -p /goinfre/$USER/android && cd /goinfre/$USER/android
 # Copy the current Linux .tar.gz link from https://developer.android.com/studio
-wget <linux-tar.gz-url>
+wget https://edgedl.me.gvt1.com/android/studio/ide-zips/2026.2.2.9/android-studio-rabbit2-patch1-linux.tar.gz
 tar -xzf android-studio-*-linux.tar.gz
 ./android-studio/bin/studio.sh
 ```
